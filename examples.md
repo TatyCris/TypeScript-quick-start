@@ -1,5 +1,5 @@
 ### TypeScript language
-- Variable declarations
+- **Variable declarations**
 ``` bash
 let foo: boolean
 const bar: number = 123
@@ -7,7 +7,7 @@ const fooConst = foo
 ```
 The type of fooConst is inferred.
 
-- Function parameters and return values
+- **Function parameters and return values**
 ```
 function joinWithComma(param1: number, param2: number): string {
     return param1 + ", " + param2
@@ -15,7 +15,7 @@ function joinWithComma(param1: number, param2: number): string {
 ```
 The function joinWithComma expects two arguments of type number and returns a string.
 
-- Arrays
+- **Arrays**
 
 ```
 let foo: number[]
@@ -23,7 +23,7 @@ foo = [1, 2]
 foo = ["error!"] // ⛔ this is not allowed! The compiler will give you an error
 ```
 
-- Any
+- **Any**
 ```
 let bar: any
 bar = 1
@@ -35,7 +35,7 @@ bar = [1, "two", false]
 let foo: any[] = bar
 ```
 
-- Null and undefined
+- **Null and undefined**
 By default, all types in TypeScript also include the values null and undefined. So, this is fine:
 ```
 // The 'number' type includes the value 'null'
@@ -54,7 +54,7 @@ Now you have to explicitly say when you want null or undefined to be allowed.
 let foo: number | null = null
 ```
 
-- Type assertions
+- **Type assertions**
 ```
 let foo: any = "some string"
 // asserting that foo is a string
@@ -62,7 +62,7 @@ let bar: string = foo as string //'as' is the assertion
 console.log(bar.toUpperCase())
 ```
 
-- Unknown
+- **Unknown**
 
 *you're not allowed to perform any operation on an unknown variable without first checking or asserting its type.*
 ```
@@ -77,3 +77,55 @@ function printUpperCaseCheck(foo: unknown) {
 }
 ```
 Both of the following functions pass the compile-time type checks, but only the second one prevents run-time errors.
+
+- **Interfaces**
+```
+interface Person {
+    firstName: string
+    lastName: string
+}
+
+function greeter(person: Person) {
+    return "Hello, " + person.firstName + " " + person.lastName
+}
+
+let jane = { firstName: "Jane", lastName: "User", dateOfBirth: new Date("01/01/2010") }
+let user: Person = jane
+```
+
+- **Methods**
+```
+interface Counter {
+    getCount: () => number
+    increment: (n: number) => void
+}
+```
+With the void-type you should not expect any value from that function.
+
+- **Optional properties**
+```
+interface MyType {
+    foo: string
+    bar?: string
+}
+
+const f1: MyType = { foo: "hello", bar: "world" }
+const f2: MyType = { foo: "hello" }
+```
+When accessing a property (or even a variable) whose value might be null or undefined, there will be an error. You can solve this checking the value in an if statement or using an exclamation mark to override TypeScript's check. This is just as risky as type-assertions.
+```
+// ...given the code in previous snippet
+
+let trimmed: string
+
+// Error
+trimmed = f2.bar.trim()
+
+// OK
+if (f2.bar) {
+    trimmed = f2.bar.trim()
+}
+
+// Also OK, but risky
+trimmed = f2.bar!.trim()
+```

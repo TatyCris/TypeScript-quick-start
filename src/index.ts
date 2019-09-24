@@ -1,25 +1,15 @@
 console.log("Hello Taty!");
 
-//readest exercises
+// readest exercises
 
-let a: number = 1
-let b: string = "hello"
-let c: boolean[] = [true, false]
-let d: object = {}
-console.log([a,b,c,d]) 
-
-function pythagoras(a: any, b: any): number {
-    if (typeof a === 'number' && typeof b === 'number') {
-        console.log('CHECK!');
-    }
-    else {
-        console.log('NO NO!');
-    }
-    return Math.sqrt(a*a + b*b)
+interface Counter {
+    getCount: () => number
+    increment: (n: number) => void
 }
-let hypotenuse = pythagoras(3, 5)
-let hypotenuseBroken = pythagoras(true, 1)
-console.log ({
-    hypotenuse,
-    hypotenuseBroken
-})
+
+let c: Counter = {
+    getCount: () => 1, 
+    increment: (n) => 'I will order ' + (n + c.getCount()) + ' pizzas!'
+}
+
+console.log(c.increment(2));
