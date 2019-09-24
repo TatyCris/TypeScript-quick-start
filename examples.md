@@ -129,3 +129,44 @@ if (f2.bar) {
 // Also OK, but risky
 trimmed = f2.bar!.trim()
 ```
+
+- **Defining new named union types**
+```
+let foo1: number | string = 1
+let foo2: number | string = "hello"
+// becomes
+type NumberOrString = number | string
+let foo3: NumberOrString = 1
+let foo4: NumberOrString = "hello"
+
+// The following two type declarations are equivalent
+interface Bar1 {
+    name: string
+}
+type Bar2 = {
+    name: string
+}
+```
+- **Generics**
+```
+type Queue<T> = {
+    put: (value: T) => void
+    take: () => T
+}
+
+let numberQueue: Queue<number>
+let stringQueue: Queue<string>
+```
+Generics can be used with interfaces, but also with union types and function types.
+```
+// Generic function type
+
+type ToString<INPUT> = (input: INPUT) => string
+const numberToString: ToString<number> = (n) => n.toString()
+
+
+// Generic union type
+
+type PossiblyMissing<TYPE> = TYPE | undefined | null
+const foo: PossiblyMissing<boolean> = true
+```
