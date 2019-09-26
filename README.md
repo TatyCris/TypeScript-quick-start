@@ -1,4 +1,4 @@
-# TypeScript-quick-start
+# TypeScript quick start
 My sample to quick start with TypeScript
 
 ## Technologies used
