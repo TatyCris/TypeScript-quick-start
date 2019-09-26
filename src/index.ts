@@ -1,20 +1,24 @@
 console.log("Hello Taty!");
 
-// readest exercises
+// typescript documentation
 
-type Foo = object | string
+class Student {
+    fullName: string;
+    constructor(public firstName: string, public middleInitial: string, public lastName: string) {
+        this.fullName = firstName + " " + middleInitial + " " + lastName;
+    }
+}
 
-let f1: Foo = { name: "James" }
-let f2: Foo = "normal string"
+interface Person {
+    firstName: string;
+    middleInitial: string;
+    lastName: string;
+}
 
-console.log(f1, f2);
+function greeter(person: Person) {
+    return "Hello, " + person.firstName + " " + person.middleInitial + " " + person.lastName;
+}
 
+let user = new Student("Jane", "M.", "User");
 
-
-type Wrapper<TYPE> = (value: TYPE) => { data: TYPE }
-
-const wrapString: Wrapper<string> = (v) => ({ data: v })
-const wrapBoolean: Wrapper<boolean> = (v) => ({ data: v })
-
-console.log(wrapString('name'));
-console.log(wrapBoolean(true));
+console.log(greeter(user));
